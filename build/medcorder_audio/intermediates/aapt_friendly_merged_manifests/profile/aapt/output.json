@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "applicationId": "co.medcorder.medcorderaudio",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "AAPT_FRIENDLY_MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": -1,
+        "outputFile": "medcorder_audio-profile.aar",
+        "fullName": "profile",
+        "baseName": "profile",
+        "dirName": ""
+      },
+      "path": "AndroidManifest.xml",
+      "properties": {
+        "packageId": "co.medcorder.medcorderaudio",
+        "split": ""
+      }
+    }
+  ]
+}

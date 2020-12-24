@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "applicationId": "co.medcorder.medcorderaudio",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "AAPT_FRIENDLY_MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": -1,
+        "outputFile": "medcorder_audio-debug.aar",
+        "fullName": "debug",
+        "baseName": "debug",
+        "dirName": ""
+      },
+      "path": "AndroidManifest.xml",
+      "properties": {
+        "packageId": "co.medcorder.medcorderaudio",
+        "split": ""
+      }
+    }
+  ]
+}
