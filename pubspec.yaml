@@ -54,6 +54,8 @@ dependencies:
   flinq: ^1.1.1
   persian_numbers: ^0.0.1
   permission_handler: ^5.0.1+1
+  provider: ^4.3.3
+  shared_preferences: ^0.5.12
 
 
 dev_dependencies:

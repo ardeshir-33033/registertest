@@ -12,26 +12,26 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:10:5-66
-14-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:10:22-64
+14-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:10:5-66
+14-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:10:22-64
 15    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-15-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:8:5-71
-15-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:8:22-68
+15-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:8:5-71
+15-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:8:22-68
 16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-16-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:9:5-81
-16-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:9:22-78
+16-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:9:5-81
+16-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:9:22-78
 17    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-17-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:11:5-81
-17-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:11:22-78
+17-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:11:5-81
+17-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:11:22-78
 18    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-18-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:12:5-79
-18-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:12:22-76
+18-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:12:5-79
+18-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:12:22-76
 19    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-19-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
-19-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
+19-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
+19-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
 20    <uses-permission android:name="android.permission.CAMERA" /> <!-- Include required permissions for Google Maps API to run. -->
-20-->[:camera] C:\flutter\register\V1\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-65
-20-->[:camera] C:\flutter\register\V1\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-62
+20-->[:camera] C:\flutter\register\RegisterPT2\1\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-65
+20-->[:camera] C:\flutter\register\RegisterPT2\1\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-62
 21    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 21-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\9cf7c419e652a5a556bb3052d5326f19\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
 21-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\9cf7c419e652a5a556bb3052d5326f19\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:22-76
@@ -44,37 +44,37 @@
 25-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\9cf7c419e652a5a556bb3052d5326f19\jetified-play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
 26
 27    <application
-27-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:13:5-53:19
+27-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:13:5-53:19
 28        android:name="io.flutter.app.FlutterApplication"
-28-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:14:9-57
+28-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:14:9-57
 29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 29-->[androidx.core:core:1.1.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\ce1635782ed616d72db5bb7f69df3596\core-1.1.0\AndroidManifest.xml:24:18-86
 30        android:debuggable="true"
 31        android:icon="@mipmap/ricon"
-31-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:16:9-37
+31-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:16:9-37
 32        android:label="CRegister" >
-32-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:15:9-34
+32-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:15:9-34
 33        <meta-data
-33-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:17:9-18:70
+33-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:17:9-18:70
 34            android:name="com.google.android.geo.API_KEY"
-34-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:17:20-65
+34-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:17:20-65
 35            android:value="AIzaSyBc8SoMobDYHODWBhICnrP13jiOcKCGyJ8" />
-35-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:18:13-68
+35-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:18:13-68
 36
 37        <activity
-37-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:19:9-47:20
+37-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:19:9-47:20
 38            android:name="com.example.register.MainActivity"
-38-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:20:13-41
+38-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:20:13-41
 39            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-39-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:23:13-163
+39-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:23:13-163
 40            android:hardwareAccelerated="true"
-40-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:24:13-47
+40-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:24:13-47
 41            android:launchMode="singleTop"
-41-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:21:13-43
+41-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:21:13-43
 42            android:theme="@style/LaunchTheme"
-42-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:22:13-47
+42-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:22:13-47
 43            android:windowSoftInputMode="adjustResize" >
-43-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:25:13-55
+43-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:25:13-55
 44
 45            <!--
 46                 Specifies an Android theme to apply to this Activity as soon as
@@ -83,11 +83,11 @@
 49                 to determine the Window background behind the Flutter UI.
 50            -->
 51            <meta-data
-51-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:30:13-33:17
+51-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:30:13-33:17
 52                android:name="io.flutter.embedding.android.NormalTheme"
-52-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:31:15-70
+52-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:31:15-70
 53                android:resource="@style/NormalTheme" />
-53-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:32:15-52
+53-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:32:15-52
 54            <!--
 55                 Displays an Android View that continues showing the launch screen
 56                 Drawable until Flutter paints its first frame, then this splash
@@ -96,21 +96,21 @@
 59                 Flutter's first frame.
 60            -->
 61            <meta-data
-61-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:39:13-42:17
+61-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:39:13-42:17
 62                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-62-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:40:15-79
+62-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:40:15-79
 63                android:resource="@drawable/launch_background" />
-63-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:41:15-61
+63-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:41:15-61
 64
 65            <intent-filter>
-65-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:43:13-46:29
+65-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:43:13-46:29
 66                <action android:name="android.intent.action.MAIN" />
-66-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:44:17-68
-66-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:44:25-66
+66-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:44:17-68
+66-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:44:25-66
 67
 68                <category android:name="android.intent.category.LAUNCHER" />
-68-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:45:17-76
-68-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:45:27-74
+68-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:45:17-76
+68-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:45:27-74
 69            </intent-filter>
 70        </activity>
 71        <!--
@@ -118,38 +118,38 @@
 73             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 74        -->
 75        <meta-data
-75-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:50:9-52:33
+75-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:50:9-52:33
 76            android:name="flutterEmbedding"
-76-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:51:13-44
+76-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:51:13-44
 77            android:value="2" />
-77-->C:\flutter\register\V1\android\app\src\main\AndroidManifest.xml:52:13-30
+77-->C:\flutter\register\RegisterPT2\1\android\app\src\main\AndroidManifest.xml:52:13-30
 78
 79        <provider
-79-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
+79-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
 80            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-80-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
+80-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
 81            android:authorities="com.example.register.flutter.image_provider"
-81-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
+81-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
 82            android:exported="false"
-82-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+82-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
 83            android:grantUriPermissions="true" >
-83-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
+83-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
 84            <meta-data
-84-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
+84-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
 85                android:name="android.support.FILE_PROVIDER_PATHS"
-85-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+85-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
 86                android:resource="@xml/flutter_image_picker_file_paths" />
-86-->[:image_picker] C:\flutter\register\V1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
+86-->[:image_picker] C:\flutter\register\RegisterPT2\1\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
 87        </provider>
 88
 89        <activity
-89-->[:url_launcher] C:\flutter\register\V1\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+89-->[:url_launcher] C:\flutter\register\RegisterPT2\1\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
 90            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-90-->[:url_launcher] C:\flutter\register\V1\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+90-->[:url_launcher] C:\flutter\register\RegisterPT2\1\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
 91            android:exported="false"
-91-->[:url_launcher] C:\flutter\register\V1\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+91-->[:url_launcher] C:\flutter\register\RegisterPT2\1\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
 92            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" /> <!-- Needs to be explicitly declared on P+ -->
-92-->[:url_launcher] C:\flutter\register\V1\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+92-->[:url_launcher] C:\flutter\register\RegisterPT2\1\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
 93        <uses-library
 93-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Administrator\.gradle\caches\transforms-2\files-2.1\9cf7c419e652a5a556bb3052d5326f19\jetified-play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
 94            android:name="org.apache.http.legacy"

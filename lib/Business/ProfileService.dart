@@ -10,6 +10,7 @@ import 'package:register/Models/Response.dart';
 import 'package:register/Models/UserModel.dart';
 import 'package:register/Models/UserRegisterModel.dart';
 import 'package:register/Service/EndPointService.dart';
+import 'package:register/Service/PathSerivce.dart';
 
 class ProfileService with ChangeNotifier {
   // consts
@@ -23,6 +24,8 @@ class ProfileService with ChangeNotifier {
   static double deviceWidth = 0.0;
   static double deviceHeight = 0.0;
   static UserModel userData;
+  static UserModel user;
+
   //static String searchText = "ایسوزو";
 
   // models
@@ -48,6 +51,10 @@ class ProfileService with ChangeNotifier {
 
   getDeviceDimension() {
     return deviceHeight * deviceWidth;
+  }
+
+  UserModel getUserData() {
+    return user ?? UserModel();
   }
 
   // String getSearchedText() {
@@ -77,6 +84,50 @@ class ProfileService with ChangeNotifier {
     }
   }
 
+  Future saveAutoLoginDataLocaly(bool al) async {
+    await SharedPreferencePath()
+        .setUserDataInSharePrefrences(al ? "1" : "0", autoLoginKey);
+    autoLoginValue = al ? "1" : "0";
+  }
+
+  Future<String> loadAutoLoginDataLocaly() async {
+    var data =
+        await SharedPreferencePath().getUserDataInSharePrefrences(autoLoginKey);
+    autoLoginValue = "1"
+        // data ?? ''
+    ;
+    return autoLoginValue;
+  }
+
+  // bool autoLoginAllow() {
+  //   if (autoLoginValue == null ||
+  //       autoLoginValue == "0" ||
+  //       autoLoginValue == "") {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+  Future<UserModel> autoLogin() {
+    if (user != null && user.userName != null && user.password != null) {
+      return ProfileService().login(
+        LoginModel(
+            grantType: "password",
+            userName: user.userName,
+            password: user.password),
+      );
+    } else {
+      return ProfileService().login(
+        LoginModel(grantType: "", userName: "", password: ""),
+      );
+    }
+  }
+
+  Future<UserModel> initialization() async {
+    user = await loadUserDataLocaly();
+    autoLoginValue = await loadAutoLoginDataLocaly();
+  }
+
   Future<UserModel> login(LoginModel model) async {
     model.grantType = "password";
     ResponseModel _responseData = await EndPointService()
@@ -98,7 +149,7 @@ class ProfileService with ChangeNotifier {
 
       userData = auth.user;
       //user = auth.user;
-      //saveUserDataLocaly(user);
+      saveUserDataLocaly(user);
 
       jwt = auth.jwt;
       //saveJWTDataLocaly(jwt);
@@ -107,6 +158,24 @@ class ProfileService with ChangeNotifier {
       return auth.user;
     } else {
       return null;
+    }
+  }
+
+  Future saveUserDataLocaly(UserModel model) async {
+    await SharedPreferencePath()
+        .setUserDataInSharePrefrences(jsonEncode(model), userKey);
+  }
+
+  Future<UserModel> loadUserDataLocaly() async {
+    String jsonString =
+        await SharedPreferencePath().getUserDataInSharePrefrences(userKey);
+    if (jsonString != null) {
+      var json = jsonDecode(
+          await SharedPreferencePath().getUserDataInSharePrefrences(userKey));
+
+      user = UserModel().fromJson(json);
+
+      return user;
     }
   }
 
@@ -239,30 +308,6 @@ class ProfileService with ChangeNotifier {
     return null;
   }
 
-// Future<bool> updateUserData(UserModel model) async {
-//   var json = jsonEncode(model);
-//   ResponseModel response = await EndPointService().setupApi(
-//     "Users",
-//     "",
-//     [
-//       QueryModel(
-//         name: "id",
-//         value: user.id.toString(),
-//       ),
-//     ],
-//   ).httpPut(
-//     json,
-//     HeaderEnum.BasicHeaderEnum,
-//     ResponseEnum.ResponseModelEnum,
-//   );
-
-//   if (response.isSuccess) {
-//     return true;
-//   }
-
-//   return false;
-// }
-
   Future<UserModel> getUserByUsername(String username) async {
     ResponseModel response = await EndPointService().setupApi(
       "Users",
@@ -281,23 +326,6 @@ class ProfileService with ChangeNotifier {
 
     return null;
   }
-
-// UserModel getProfile() {
-//   return profile;
-// }
-
-// UserModel getUserData() {
-//   return user;
-// }
-
-// // jwt model part
-// Future setJWTData(JwtModel model) {
-//   jwt = model;
-// }
-
-// JwtModel getJWT() {
-//   return jwt;
-// }
 
   String getToken() {
     return jwt?.access_token ?? "";

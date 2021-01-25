@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:register/Business/ProfileService.dart';
 import 'package:register/Business/RegisterBusiness.dart';
 import 'package:register/Models/LoginModel.dart';
+import 'package:register/Provider/ProviderServices.dart';
+import 'package:register/Service/ProfileServices.dart';
 import 'package:register/pasajtabaghewidget.dart';
 import 'RedButton.dart';
 import 'RedSmallCheckBox.dart';
@@ -26,10 +29,41 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
   TextEditingController password = TextEditingController();
 
 
+
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
-    RegisterBusiness().initialDataAsync();
+    ProfileService().initialization();
+    await RegisterBusiness().initialDataAsync();
+    auto = await ProfileService().autoLoginAllow();
+    setState(() {
+      if (ProfileService().getUserData().userName != null) {
+        userName.text = ProfileService().getUserData().userName;
+        password.text = ProfileService().getUserData().password;
+      }
+    });
+
+    if (auto) {
+      setState(() {
+        vis = true;
+      });
+      if (ProfileService().autoLogin() != null) {
+        ProfileService().autoLogin().then((value1) async {
+          if (value1 != null) {
+            await ProfileService()
+                .getUserByUsername(ProfileService().getUserData().userName);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        PasajTabagheWidget()));
+            setState(() {
+              vis = false;
+            });
+          }
+        });
+      }
+    }
   }
 
   @override
@@ -198,8 +232,7 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 FlatButton(
-                                  padding: EdgeInsets.only(
-                                      top: 0.0, bottom: 35.0, left: 20),
+                                  padding: EdgeInsets.only(top: 5.0, bottom: 5),
                                   child: Text(
                                     "بازیابی رمز عبور",
                                     style: TextStyle(
@@ -236,38 +269,47 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
                                 ),
                                 GestureDetector(
                                   child: Container(
-                                    padding: EdgeInsets.only(
-                                      bottom: 35.0,
-                                      top: 0.0,
-                                    ),
-                                    alignment: Alignment.topLeft,
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        SizedBox(
-                                          width: 5.0,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            "ورود خودکار",
-                                            style: TextStyle(),
+                                        Consumer<AutoLoginCheck>(
+                                          builder: (context, AutoLog, child) =>
+                                              Container(
+                                            width: 150,
+                                            child: CheckboxListTile(
+                                              dense: true,
+                                              title: Text(
+                                                "ورود خودکار",
+                                                style: TextStyle(fontSize: 10),
+                                              ),
+                                              value: AutoLog.value,
+                                              onChanged: (value) {
+                                                AutoLog.checkLoginVal(value);
+                                                ProfileService()
+                                                    .saveAutoLoginDataLocaly(
+                                                        AutoLog.value);
+                                                ProfileService()
+                                                    .loadAutoLoginDataLocaly();
+                                              },
+                                            ),
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: 12.0,
-                                        ),
-                                        autoWidget,
+                                        // Container(
+                                        //   child: Text(
+                                        //     "ورود خودکار",
+                                        //     style: TextStyle(),
+                                        //   ),
+                                        // ),
+                                        // SizedBox(
+                                        //   width: 12.0,
+                                        // ),
+                                        // autoWidget,
                                       ],
                                     ),
                                   ),
-                                  onTap: () {
-                                  },
+                                  onTap: () {},
                                 ),
                               ],
                             ),
@@ -275,7 +317,6 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
                           SizedBox(
                             height: 35.0,
                           ),
-
                           GestureDetector(
                             onTap: () async {
                               // Navigator.push(
