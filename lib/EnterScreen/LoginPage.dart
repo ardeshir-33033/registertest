@@ -28,42 +28,60 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
 
-
+  Future initialize() async {
+    await ProfileService().initialization();
+    await RegisterBusiness().initialDataAsync();
+  }
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
-    ProfileService().initialization();
-    await RegisterBusiness().initialDataAsync();
-    auto = await ProfileService().autoLoginAllow();
-    setState(() {
-      if (ProfileService().getUserData().userName != null) {
-        userName.text = ProfileService().getUserData().userName;
-        password.text = ProfileService().getUserData().password;
+    initialize().then((value) async {
+      auto = ProfileService().autoLoginAllow();
+
+      if (auto) {
+        setState(() {
+          vis = true;
+          AutoLoginCheck().value = true;
+
+        });
+        // setState(() {
+          if (ProfileService().getUserData().userName != null) {
+            userName.text = ProfileService().getUserData().userName;
+            password.text = ProfileService().getUserData().password;
+          }
+        // });
+
+        var user = await ProfileService().login(
+          LoginModel(
+            password: password.text,
+            userName: userName.text,
+          ),
+        );
+        if (user != null) {
+          await ProfileService().getUserByUsername(userName.text);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => PasajTabagheWidget()));
+        }
       }
     });
 
-    if (auto) {
-      setState(() {
-        vis = true;
-      });
-      if (ProfileService().autoLogin() != null) {
-        ProfileService().autoLogin().then((value1) async {
-          if (value1 != null) {
-            await ProfileService()
-                .getUserByUsername(ProfileService().getUserData().userName);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        PasajTabagheWidget()));
-            setState(() {
-              vis = false;
-            });
-          }
-        });
-      }
-    }
+    // if (ProfileService().autoLogin() != null) {
+    //   ProfileService().autoLogin().then((value1) async {
+    //     if (value1 != null) {
+    //       await ProfileService()
+    //           .getUserByUsername(ProfileService().getUserData().userName);
+    //       Navigator.push(
+    //           context,
+    //           MaterialPageRoute(
+    //               builder: (context) =>
+    //                   PasajTabagheWidget()));
+    //       setState(() {
+    //         vis = false;
+    //       });
+    //     }
+    //   });
+    // }
   }
 
   @override

@@ -9,6 +9,7 @@ import 'package:register/Models/QueryModel.dart';
 import 'package:register/Models/Response.dart';
 import 'package:register/Models/UserModel.dart';
 import 'package:register/Models/UserRegisterModel.dart';
+import 'package:register/Provider/ProviderServices.dart';
 import 'package:register/Service/EndPointService.dart';
 import 'package:register/Service/PathSerivce.dart';
 
@@ -93,9 +94,8 @@ class ProfileService with ChangeNotifier {
   Future<String> loadAutoLoginDataLocaly() async {
     var data =
         await SharedPreferencePath().getUserDataInSharePrefrences(autoLoginKey);
-    autoLoginValue = "1"
-        // data ?? ''
-    ;
+    autoLoginValue = data ?? '';
+
     return autoLoginValue;
   }
 
@@ -148,7 +148,7 @@ class ProfileService with ChangeNotifier {
       auth.user.password = model.password;
 
       userData = auth.user;
-      //user = auth.user;
+      user = auth.user;
       saveUserDataLocaly(user);
 
       jwt = auth.jwt;
