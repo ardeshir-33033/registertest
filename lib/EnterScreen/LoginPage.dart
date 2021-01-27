@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:register/Business/ProfileService.dart';
 import 'package:register/Business/RegisterBusiness.dart';
+import 'package:register/Models/GoogleAuth.dart';
 import 'package:register/Models/LoginModel.dart';
 import 'package:register/Provider/ProviderServices.dart';
 import 'package:register/Service/ProfileServices.dart';
@@ -30,7 +32,7 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
 
   Future initialize() async {
     await ProfileService().initialization();
-    await RegisterBusiness().initialDataAsync();
+    // await RegisterBusiness().initialDataAsync();
   }
 
   @override
@@ -40,16 +42,11 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
       auto = ProfileService().autoLoginAllow();
 
       if (auto) {
-        setState(() {
-          vis = true;
-          AutoLoginCheck().value = true;
-
-        });
         // setState(() {
-          if (ProfileService().getUserData().userName != null) {
-            userName.text = ProfileService().getUserData().userName;
-            password.text = ProfileService().getUserData().password;
-          }
+        if (ProfileService().getUserData().userName != null) {
+          userName.text = ProfileService().getUserData().userName;
+          password.text = ProfileService().getUserData().password;
+        }
         // });
 
         var user = await ProfileService().login(
@@ -59,6 +56,10 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
           ),
         );
         if (user != null) {
+          setState(() {
+            vis = true;
+            AutoLoginCheck().value = true;
+          });
           await ProfileService().getUserByUsername(userName.text);
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => PasajTabagheWidget()));
@@ -83,6 +84,10 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
     //   });
     // }
   }
+
+  GoogleSignIn googleSignIn = GoogleSignIn(
+      clientId:
+          '170054889137-0m0e963is6gmsjjurkqu6niga773l83h.apps.googleusercontent.com');
 
   @override
   Widget build(BuildContext context) {
@@ -411,6 +416,12 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
                               ),
                             ),
                           ),
+                          RaisedButton(
+                            child: Text('google'),
+                            onPressed: () {
+                              LoginSignIn();
+                            },
+                          ),
                           SizedBox(
                             height: 15.0,
                           ),
@@ -441,5 +452,25 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
         ),
       ),
     );
+  }
+
+  void LoginSignIn() async {
+    await googleSignIn.signOut();
+
+    GoogleSignInAccount GoogleUser = await googleSignIn.signIn();
+    GoogleAuth googleAuth;
+
+    if (GoogleUser == null) {
+      print("failed");
+    } else {
+      googleAuth = ProfileService().GoogleSignToPost(GoogleUser);
+      await ProfileService().GoogleLogIn(googleAuth);
+      ////RegisterBusiness().initialDataAsync();
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => PasajTabagheWidget()));
+    }
   }
 }

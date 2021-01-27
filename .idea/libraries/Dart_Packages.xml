@@ -366,6 +366,27 @@
             </list>
           </value>
         </entry>
+        <entry key="google_sign_in">
+          <value>
+            <list>
+              <option value="C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-4.5.9/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_sign_in_platform_interface">
+          <value>
+            <list>
+              <option value="C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_platform_interface-1.1.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_sign_in_web">
+          <value>
+            <list>
+              <option value="C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_web-0.9.2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="graphs">
           <value>
             <list>
@@ -970,6 +991,9 @@
       <root url="file://C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/glob-1.2.0/lib" />
       <root url="file://C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.0.6/lib" />
       <root url="file://C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-1.0.4/lib" />
+      <root url="file://C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-4.5.9/lib" />
+      <root url="file://C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_platform_interface-1.1.2/lib" />
+      <root url="file://C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_web-0.9.2/lib" />
       <root url="file://C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/graphs-0.2.0/lib" />
       <root url="file://C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.2/lib" />
       <root url="file://C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http_multi_server-2.2.0/lib" />

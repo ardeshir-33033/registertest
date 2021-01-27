@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:register/pasajtabaghewidget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'EnterScreen/LoginPage.dart';
 import 'Provider/ProviderServices.dart';
 

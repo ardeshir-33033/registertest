@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:register/Models/AuthModel.dart';
+import 'package:register/Models/GoogleAuth.dart';
 import 'package:register/Models/JWT.dart';
 import 'package:register/Models/LoginModel.dart';
 import 'package:register/Models/QueryModel.dart';
@@ -126,6 +128,30 @@ class ProfileService with ChangeNotifier {
   Future<UserModel> initialization() async {
     user = await loadUserDataLocaly();
     autoLoginValue = await loadAutoLoginDataLocaly();
+  }
+
+  Future<JwtModel> GoogleLogIn(GoogleAuth modelAuth) async {
+    ResponseModel _responseData =
+        await EndPointService().setupApi("Users", "GoogleToken", null).httpPost(
+              jsonEncode(modelAuth.toJson()),
+              HeaderEnum.BasicHeaderEnum,
+              ResponseEnum.ResponseModelEnum,
+            );
+    if (_responseData.isSuccess) {
+      jwt = JwtModel().fromJson(_responseData.data);
+      return jwt;
+    }
+  }
+
+  GoogleAuth GoogleSignToPost(GoogleSignInAccount GoogleUser) {
+    GoogleAuth googleAuthUser = GoogleAuth(
+      id: GoogleUser.id,
+      displayName: GoogleUser.displayName,
+      photoUrl: GoogleUser.photoUrl,
+      email: GoogleUser.email,
+    );
+
+    return googleAuthUser;
   }
 
   Future<UserModel> login(LoginModel model) async {
