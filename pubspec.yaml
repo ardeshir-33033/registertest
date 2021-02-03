@@ -82,6 +82,19 @@ flutter:
     - assets/images/search icon.svg
     - assets/images/newbg.png
     - assets/images/ricon.png
+    - assets/images/Background.png
+    - assets/images/Artboard1.png
+    - assets/images/MainBackground.png
+    - assets/images/check1.png
+    - assets/images/check2.png
+    - assets/images/uploadList.png
+    - assets/images/camera.png
+    - assets/images/fileUpload.png
+    - assets/images/SubmitButton.png
+    - assets/images/ContinueButton.png
+    - assets/images/VoiceIcon.png
+
+
 
 
       # An image asset can refer to one or more resolution-specific "variants", see

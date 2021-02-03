@@ -26,7 +26,6 @@ class _AudioPlayer1 extends State<AudioPlayer1> {
   String file = mainPath;
   static String urlPath;
 
-
   @override
   initState() {
     super.initState();
@@ -39,7 +38,7 @@ class _AudioPlayer1 extends State<AudioPlayer1> {
   Future _initSettings() async {
     final String result = await audioModule.checkMicrophonePermissions();
 
-    if (await Permission.microphone.request().isGranted){
+    if (await Permission.microphone.request().isGranted) {
       await audioModule.setAudioSettings();
       setState(() {
         canRecord = true;
@@ -132,7 +131,6 @@ class _AudioPlayer1 extends State<AudioPlayer1> {
       margin: EdgeInsets.all(10.0),
       padding: EdgeInsets.all(5.0),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: Center(
@@ -140,9 +138,10 @@ class _AudioPlayer1 extends State<AudioPlayer1> {
               ? Row(
                   children: <Widget>[
                     new InkWell(
-                      child: Container(
-                        child: Icon(isRecord ? Icons.stop : Icons.mic),
-                      ),
+                      child: Center(
+                          child: Icon(
+                        isRecord ? Icons.stop : Icons.mic,
+                      )),
                       onTap: () {
                         if (isRecord) {
                           _stopRecord();
@@ -156,7 +155,10 @@ class _AudioPlayer1 extends State<AudioPlayer1> {
                     ),
                     new InkWell(
                       child: new Container(
-                        child: Icon(isPlay ? Icons.pause : Icons.play_arrow),
+                        color: Colors.transparent,
+                        child: Icon(
+                          isPlay ? Icons.pause : Icons.play_arrow,
+                        ),
                       ),
                       onTap: () {
                         if (!isRecord && file.length > 0) {
@@ -167,14 +169,14 @@ class _AudioPlayer1 extends State<AudioPlayer1> {
                   ],
                 )
               : FlatButton(
-            onPressed: (){
-              _initSettings();
-            },
-                child: new Text(
+                  onPressed: () {
+                    _initSettings();
+                  },
+                  child: new Text(
                     'میکروفون غیرفعال است',
                     textAlign: TextAlign.center,
                   ),
-              )),
+                )),
     );
   }
 }

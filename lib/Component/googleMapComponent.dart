@@ -87,7 +87,7 @@ class _googleMapComponentState extends State<googleMapComponent> {
       name: DateTime.now().microsecondsSinceEpoch.toString(),
       place: lastMapPosition,
       url:
-      'https://cdn.jpegmini.com/user/images/slider_puffin_before_mobile.jpg',
+          'https://cdn.jpegmini.com/user/images/slider_puffin_before_mobile.jpg',
     ));
   }
 
@@ -97,12 +97,172 @@ class _googleMapComponentState extends State<googleMapComponent> {
 
   void onMapCreated(GoogleMapController _controller) {
     controller = _controller;
+    controller.setMapStyle('''[
+    {
+        "elementType": "geometry",
+        "stylers": [
+        {
+        "color": "#242f3e"
+        }
+        ]
+        },
+        {
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+        "color": "#746855"
+        }
+        ]
+        },
+        {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+        {
+        "color": "#242f3e"
+        }
+        ]
+        },
+        {
+        "featureType": "administrative.locality",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+        "color": "#d59563"
+        }
+        ]
+        },
+        {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+        "color": "#d59563"
+        }
+        ]
+        },
+        {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+        {
+        "color": "#263c3f"
+        }
+        ]
+        },
+        {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+        "color": "#6b9a76"
+        }
+        ]
+        },
+        {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+        {
+        "color": "#38414e"
+        }
+        ]
+        },
+        {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [
+        {
+        "color": "#212a37"
+        }
+        ]
+        },
+        {
+        "featureType": "road",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+        "color": "#9ca5b3"
+        }
+        ]
+        },
+        {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+        {
+        "color": "#746855"
+        }
+        ]
+        },
+        {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [
+        {
+        "color": "#1f2835"
+        }
+        ]
+        },
+        {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+        "color": "#f3d19c"
+        }
+        ]
+        },
+        {
+        "featureType": "transit",
+        "elementType": "geometry",
+        "stylers": [
+        {
+        "color": "#2f3948"
+        }
+        ]
+        },
+        {
+        "featureType": "transit.station",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+        "color": "#d59563"
+        }
+        ]
+        },
+        {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+        {
+        "color": "#17263c"
+        }
+        ]
+        },
+        {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+        {
+        "color": "#515c6d"
+        }
+        ]
+        },
+        {
+        "featureType": "water",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+        {
+        "color": "#17263c"
+        }
+        ]
+        }
+        ]''');
   }
 
   void deleteMarker() {
     markers.clear();
     markerList.clear();
-
     setState(() {});
   }
 
@@ -134,20 +294,20 @@ class _googleMapComponentState extends State<googleMapComponent> {
 
       locationSubscription =
           locationTracker.onLocationChanged.listen((newLocalData) {
-            if (widget.OnMyLocationCallback != null) {
-              widget.OnMyLocationCallback(
-                  LatLng(newLocalData.latitude, newLocalData.longitude));
-            }
-            if (controller != null) {
-              controller.animateCamera(CameraUpdate.newCameraPosition(
-                  new CameraPosition(
-                      bearing: 192.8334901395799,
-                      target: LatLng(newLocalData.latitude, newLocalData.longitude),
-                      tilt: 0,
-                      zoom: 18.00)));
+        if (widget.OnMyLocationCallback != null) {
+          widget.OnMyLocationCallback(
+              LatLng(newLocalData.latitude, newLocalData.longitude));
+        }
+        if (controller != null) {
+          controller.animateCamera(CameraUpdate.newCameraPosition(
+              new CameraPosition(
+                  bearing: 192.8334901395799,
+                  target: LatLng(newLocalData.latitude, newLocalData.longitude),
+                  tilt: 0,
+                  zoom: 18.00)));
 //          updateMarkerAndCircle(newLocalData, imageData);
-            }
-          });
+        }
+      });
     } on PlatformException catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
         debugPrint("Permission Denied");
@@ -173,11 +333,11 @@ class _googleMapComponentState extends State<googleMapComponent> {
             ////Secret Ingridient to possible scrolling of google map on SingleChildScrollView
             gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
               new Factory<OneSequenceGestureRecognizer>(
-                    () => new EagerGestureRecognizer(),
+                () => new EagerGestureRecognizer(),
               ),
             ].toSet(),
             ///////
-
+            // liteModeEnabled: true,
             compassEnabled: false,
             scrollGesturesEnabled: true,
             zoomGesturesEnabled: true,
@@ -344,12 +504,12 @@ Widget myDetailsContainer1(String restaurantName) {
         padding: EdgeInsets.all(50),
         child: Container(
             child: Text(
-              restaurantName,
-              style: TextStyle(
-                  color: Color(0xff6200ee),
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold),
-            )),
+          restaurantName,
+          style: TextStyle(
+              color: Color(0xff6200ee),
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold),
+        )),
       ),
     ],
   );

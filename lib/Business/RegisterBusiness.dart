@@ -16,6 +16,7 @@ import 'package:register/ApiModels/Vehicle.dart';
 import 'package:register/Business/ProfileService.dart';
 import 'package:register/Models/ActivityDetail.dart';
 import 'package:register/Models/Response.dart';
+import 'package:register/Provider/TokenProvider.dart';
 import 'package:register/Service/EndPointService.dart';
 import 'package:flinq/flinq.dart';
 import 'package:path/path.dart' as path1;
@@ -37,8 +38,8 @@ class RegisterBusiness with ChangeNotifier {
 
   Future<InitialModel> initialDataAsync() async {
     ResponseModel response = await EndPointService()
-        .setupApi("Registeration", "InitParameters", []).httpXGet(
-      EndPointService().getBearerHeader(ProfileService().getToken()),
+        .setupApi("Registeration", "InitParameters", [] , TokenProvider().getToken()).httpXGet(
+      HeaderEnum.BearerHeaderEnum,
       ResponseEnum.ResponseModelEnum,
     );
 
@@ -121,7 +122,7 @@ class RegisterBusiness with ChangeNotifier {
     var json = jsonEncode(model.toJson());
 
     ResponseModel response =
-        await EndPointService().setupApi("Registeration", "", []).httpXPost(
+        await EndPointService().setupApi("Registeration", "", [],"").httpXPost(
       json,
       EndPointService().getBearerHeader(ProfileService().getToken()),
       ResponseEnum.ResponseModelEnum,
@@ -142,7 +143,7 @@ class RegisterBusiness with ChangeNotifier {
     var json = jsonEncode(model.toJson());
 
     ResponseModel response =
-    await EndPointService().setupApi("Registeration", "setMall", []).httpXPost(
+    await EndPointService().setupApi("Registeration", "setMall", [] , "").httpXPost(
       json,
       EndPointService().getBearerHeader(ProfileService().getToken()),
       ResponseEnum.ResponseModelEnum,

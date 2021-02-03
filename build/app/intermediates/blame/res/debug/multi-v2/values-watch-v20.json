@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\flutter\\register\\RegisterPT2\\1\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
+            "outputFile": "C:\\flutter\\register\\RegisterPT2\\V2\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-2\\files-2.1\\6271538cb1288f1b3eb03cc6eaae2f3b\\jetified-play-services-auth-16.0.1\\res\\values-watch-v20\\values.xml",

@@ -12,6 +12,7 @@ import 'package:register/Models/Response.dart';
 import 'package:register/Models/UserModel.dart';
 import 'package:register/Models/UserRegisterModel.dart';
 import 'package:register/Provider/ProviderServices.dart';
+import 'package:register/Provider/TokenProvider.dart';
 import 'package:register/Service/EndPointService.dart';
 import 'package:register/Service/PathSerivce.dart';
 
@@ -131,14 +132,18 @@ class ProfileService with ChangeNotifier {
   }
 
   Future<JwtModel> GoogleLogIn(GoogleAuth modelAuth) async {
-    ResponseModel _responseData =
-        await EndPointService().setupApi("Users", "GoogleToken", null).httpPost(
-              jsonEncode(modelAuth.toJson()),
-              HeaderEnum.BasicHeaderEnum,
-              ResponseEnum.ResponseModelEnum,
-            );
+    ResponseModel _responseData = await EndPointService()
+        .setupApi("Users", "GoogleToken", null, "")
+        .httpPost(
+          jsonEncode(modelAuth.toJson()),
+          HeaderEnum.BasicHeaderEnum,
+          ResponseEnum.ResponseModelEnum,
+        );
     if (_responseData.isSuccess) {
       jwt = JwtModel().fromJson(_responseData.data);
+
+      TokenProvider().setToken(jwt.access_token);
+
       return jwt;
     }
   }
@@ -156,17 +161,12 @@ class ProfileService with ChangeNotifier {
 
   Future<UserModel> login(LoginModel model) async {
     model.grantType = "password";
-    ResponseModel _responseData = await EndPointService()
-        .setupApi(
-          "Users",
-          "Token",
-          null,
-        )
-        .httpPost(
-          model.toFormData(),
-          HeaderEnum.EmptyHeaderEnum,
-          ResponseEnum.ResponseModelEnum,
-        );
+    ResponseModel _responseData =
+        await EndPointService().setupApi("Users", "Token", null, "").httpPost(
+              model.toFormData(),
+              HeaderEnum.EmptyHeaderEnum,
+              ResponseEnum.ResponseModelEnum,
+            );
     if (_responseData.isSuccess) {
       AuthModel auth = AuthModel().fromJson(_responseData.data);
 
@@ -178,6 +178,8 @@ class ProfileService with ChangeNotifier {
       saveUserDataLocaly(user);
 
       jwt = auth.jwt;
+
+      TokenProvider().setToken(jwt.access_token);
       //saveJWTDataLocaly(jwt);
       //decodeUserType();
 
@@ -218,17 +220,12 @@ class ProfileService with ChangeNotifier {
 
   Future<UserRegisterModel> register(UserRegisterModel model) async {
     String jsn = jsonEncode(model);
-    ResponseModel _responseData = await EndPointService()
-        .setupApi(
-          "Users",
-          "",
-          null,
-        )
-        .httpPost(
-          jsn,
-          HeaderEnum.BasicHeaderEnum,
-          ResponseEnum.ResponseModelEnum,
-        );
+    ResponseModel _responseData =
+        await EndPointService().setupApi("Users", "", null, "").httpPost(
+              jsn,
+              HeaderEnum.BasicHeaderEnum,
+              ResponseEnum.ResponseModelEnum,
+            );
 
     if (_responseData.isSuccess) {
       return UserRegisterModel().fromJson(_responseData.data);
@@ -238,19 +235,22 @@ class ProfileService with ChangeNotifier {
   }
 
   Future<bool> reset(UserModel model) async {
-    ResponseModel _response = await EndPointService().setupApi(
-      "Users",
-      "",
-      [
-        QueryModel(
-          name: "userName",
-          value: model.userName,
-        ),
-      ],
-    ).httpDelete(
-      HeaderEnum.EmptyHeaderEnum,
-      ResponseEnum.ResponseModelEnum,
-    );
+    ResponseModel _response = await EndPointService()
+        .setupApi(
+          "Users",
+          "",
+          [
+            QueryModel(
+              name: "userName",
+              value: model.userName,
+            ),
+          ],
+          "",
+        )
+        .httpDelete(
+          HeaderEnum.EmptyHeaderEnum,
+          ResponseEnum.ResponseModelEnum,
+        );
 
     if (_response.isSuccess) {
       return true;
@@ -260,24 +260,27 @@ class ProfileService with ChangeNotifier {
   }
 
   Future<bool> validation(String code, UserModel model) async {
-    ResponseModel _responseData = await EndPointService().setupApi(
-      "Users",
-      "ValidPhone",
-      [
-        QueryModel(
-          name: "username",
-          value: model.userName,
-        ),
-        QueryModel(
-          name: "code",
-          value: code,
+    ResponseModel _responseData = await EndPointService()
+        .setupApi(
+          "Users",
+          "ValidPhone",
+          [
+            QueryModel(
+              name: "username",
+              value: model.userName,
+            ),
+            QueryModel(
+              name: "code",
+              value: code,
+            )
+          ],
+          "",
         )
-      ],
-    ).httpPost(
-      "",
-      HeaderEnum.EmptyHeaderEnum,
-      ResponseEnum.ResponseModelEnum,
-    );
+        .httpPost(
+          "",
+          HeaderEnum.EmptyHeaderEnum,
+          ResponseEnum.ResponseModelEnum,
+        );
 
     if (_responseData.isSuccess) {
       return true;
@@ -287,19 +290,22 @@ class ProfileService with ChangeNotifier {
   }
 
   Future resendSms(UserModel model) async {
-    ResponseModel _response = await EndPointService().setupApi(
-      "Users",
-      "AgainSendValidCode",
-      [
-        QueryModel(
-          name: "username",
-          value: model.userName,
-        ),
-      ],
-    ).httpGet(
-      HeaderEnum.EmptyHeaderEnum,
-      ResponseEnum.ResponseModelEnum,
-    );
+    ResponseModel _response = await EndPointService()
+        .setupApi(
+          "Users",
+          "AgainSendValidCode",
+          [
+            QueryModel(
+              name: "username",
+              value: model.userName,
+            ),
+          ],
+          "",
+        )
+        .httpGet(
+          HeaderEnum.EmptyHeaderEnum,
+          ResponseEnum.ResponseModelEnum,
+        );
 
     if (_response.isSuccess) {
       // method
@@ -311,19 +317,22 @@ class ProfileService with ChangeNotifier {
   }
 
   Future<UserModel> getUserByPhone(String phone) async {
-    ResponseModel response = await EndPointService().setupApi(
-      "GetByPhoneNumber",
-      "",
-      [
-        QueryModel(
-          name: "phoneNumber",
-          value: phone,
-        ),
-      ],
-    ).httpGet(
-      HeaderEnum.BasicHeaderEnum,
-      ResponseEnum.ResponseModelEnum,
-    );
+    ResponseModel response = await EndPointService()
+        .setupApi(
+          "GetByPhoneNumber",
+          "",
+          [
+            QueryModel(
+              name: "phoneNumber",
+              value: phone,
+            ),
+          ],
+          "",
+        )
+        .httpGet(
+          HeaderEnum.BasicHeaderEnum,
+          ResponseEnum.ResponseModelEnum,
+        );
 
     if (response.isSuccess) {
       UserModel _user = UserModel().fromJson(response.data);
@@ -334,24 +343,67 @@ class ProfileService with ChangeNotifier {
     return null;
   }
 
-  Future<UserModel> getUserByUsername(String username) async {
-    ResponseModel response = await EndPointService().setupApi(
-      "Users",
-      username,
-      [],
-    ).httpXGet(
-      EndPointService().getBearerHeader(ProfileService().getToken()),
-      ResponseEnum.ResponseModelEnum,
-    );
+  Future<ResponseModel> AddUserPhoneNumber(LoginPhone model) async {
+    String modelString = '{ "phoneNumber": "${model.phoneNumber}" }';
 
-    if (response.isSuccess) {
-      UserModel _user = UserModel().fromJson(response.data);
-      userData = _user;
-      return _user;
-    }
-
-    return null;
+    ResponseModel response = await EndPointService()
+        .setupApi("Users", "SuspendedUser", [], "")
+        .httpPost(
+          modelString,
+          HeaderEnum.BearerHeaderEnum,
+          ResponseEnum.ResponseModelEnum,
+        );
+    return (response);
   }
+
+  Future<ResponseModel> AddUserCode(String CodeText, String phoneNumber) async {
+    String modelString =
+        '{ "phoneNumber": "${phoneNumber}" , "code": "${CodeText}" }';
+
+    ResponseModel response = await EndPointService()
+        .setupApi("Users", "SuspendedUserVerify", [], "")
+        .httpPost(
+          modelString,
+          HeaderEnum.BearerHeaderEnum,
+          ResponseEnum.ResponseModelEnum,
+        );
+    return (response);
+  }
+
+  Future<void> AddnewUser(String phoneNumber, String Password) async {
+    String modelString =
+        '{ "phoneNumber": "${phoneNumber}" , "password": "${Password}" }';
+
+    ResponseModel response = await EndPointService()
+        .setupApi("Users", "CreateWithValidation", [], "")
+        .httpPost(
+          modelString,
+          HeaderEnum.BearerHeaderEnum,
+          ResponseEnum.ResponseModelEnum,
+        );
+    if (response.isSuccess) {
+      print("yes");
+    }
+  }
+
+  // Future<UserModel> getUserByUsername(String username) async {
+  //   ResponseModel response = await EndPointService().setupApi(
+  //     "Users",
+  //     username,
+  //     [],""
+  //   ).httpXGet(
+  //     HeaderEnum.BearerHeaderEnum,
+  //     ResponseEnum.ResponseModelEnum,
+  //   );
+  //
+  //   if (response.isSuccess) {
+  //     UserModel _user = UserModel().fromJson(response.data);
+  //     userData = _user;
+  //     return _user;
+  //   }
+  //
+  //   return null;
+  // }
 
   String getToken() {
     return jwt?.access_token ?? "";

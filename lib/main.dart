@@ -1,12 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:register/MainPageScreen/AddBrand.dart';
+import 'package:register/MainPageScreen/PasajSecondPage.dart';
+import 'file:///C:/flutter/register/RegisterPT2/V2/lib/MainPageScreen/PasajNew.dart';
 import 'package:register/pasajtabaghewidget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'EnterScreen/LoginPage.dart';
+import 'Provider/PasajFirstProvider.dart';
 import 'Provider/ProviderServices.dart';
+import 'TextfieldProvider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    // ChangeNotifierProvider<TextFieldProvider>(
+    //     create: (context) => TextFieldProvider()),
+    // ChangeNotifierProvider<SizeProvider>(
+    //     create: (context) => SizeProvider()),
+    // ChangeNotifierProvider<FontSizeProvider>(
+    //     create: (context) => FontSizeProvider()),
+    // ChangeNotifierProvider<ContainerSizeProvider>(
+    //     create: (context) => ContainerSizeProvider()),
+    // ChangeNotifierProvider<ContainerProvider>(
+    //     create: (context) => ContainerProvider()),
+    ChangeNotifierProvider<TextFieldVisibleProvider>(
+        create: (context) => TextFieldVisibleProvider()),
+    ChangeNotifierProvider<TextFieldOpacityProvider>(
+        create: (context) => TextFieldOpacityProvider()),
+    ChangeNotifierProvider<AutoLoginCheck>(
+      create: (context) => AutoLoginCheck(),
+    ),
+    ChangeNotifierProvider<PlaceCheckBoxProvider>(
+      create: (context) => PlaceCheckBoxProvider(),
+    ),
+    ChangeNotifierProvider<checkBoxGuarantee>(
+        create: (context) => checkBoxGuarantee())
+  ], child: MyApp()));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+      .copyWith(systemNavigationBarColor: Colors.black));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,9 +54,11 @@ class MyApp extends StatelessWidget {
       ],
       locale: Locale("fa", "IR"),
       title: 'Flutter Demo',
-      theme: ThemeData(
+      theme:
+          // ThemeData.dark(),
+          ThemeData(
         fontFamily: 'IRANSans',
-        brightness: Brightness.light,
+        brightness: Brightness.dark,
         primarySwatch: Colors.grey,
         primaryColor: Colors.grey[50],
         primaryColorBrightness: Brightness.light,
@@ -36,26 +69,12 @@ class MyApp extends StatelessWidget {
           bodyText1: TextStyle(color: Colors.black87, fontFamily: 'IRANSans'),
         ),
       ),
-      home: MultiProvider(providers: [
-        ChangeNotifierProvider<AutoLoginCheck>(
-          create: (context) => AutoLoginCheck(),
-        )
-      ], child: MyHomePage(title: 'Flutter Demo Home Page')),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => QC_LoginPage(),
+        '/AddBrandPage': (context) => AddBrandpage(),
+        '/PasajSecondPage': (context) => PasajSecondPage(),
+      },
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return QC_LoginPage();
   }
 }

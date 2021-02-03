@@ -76,7 +76,7 @@ abstract class ApiService {
         return ""; //imageHeader;
         break;
       case HeaderEnum.BearerHeaderEnum:
-        return ""; //bearerHeader;
+        return getBearerHeader(token); //bearerHeader;
         break;
       case HeaderEnum.FormDataHeaderEnum:
         return formDataHeader;
@@ -125,7 +125,7 @@ abstract class ApiService {
     return this;
   }
 
-  setupApi(String baseName, String parameter, List<QueryModel> queries) {
+  setupApi(String baseName, String parameter, List<QueryModel> queries, String _token) {
     this.baseName =
         baseName != null && baseName.isNotEmpty ? "/$baseName" : "/Users";
     this.parameter =
@@ -139,12 +139,18 @@ abstract class ApiService {
       });
     }
 
+    token = _token;
+
     return this;
   }
 
   setBaseName(String name) {
     this.baseName = "/$name";
     return this;
+  }
+
+  setToken(String _token){
+    token = _token;
   }
 
   addParameter(String parameter) {
@@ -184,11 +190,11 @@ abstract class ApiService {
         );
   }
 
-  httpXGet(dynamic _headers, ResponseEnum responseType) {
+  httpXGet(HeaderEnum headerType, ResponseEnum responseType) {
     return http
         .get(
           "$baseUrl$baseName$parameter$query",
-          headers: _headers,
+      headers: headerGetter(headerType),
         )
         .then(
           (http.Response response) => responseGetter(

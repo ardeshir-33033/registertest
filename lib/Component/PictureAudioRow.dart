@@ -23,178 +23,178 @@ class _PicAudioState extends State<PicAudio> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              return showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      backgroundColor: Colors.white,
-                      content: new SingleChildScrollView(
-                        child: new ListBody(
-                          children: <Widget>[
-                            GestureDetector(
-                                child: new Text(
-                                  'گرفتن عکس',
-                                  style: TextStyle(color: Colors.grey.shade700),
-                                ),
-                                onTap: () {
-                                  inProgress = true;
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Camera(
-                                        captureCallBack: (result) async {
-                                          var capturesFile = File(result);
-                                          RegisterBusiness()
-                                              .setNewPicture(result);
-                                          setState(() {});
-                                          widget.onPictureCallBack();
-
-                                          if (capturesFile != null) {
-                                            var uploadResult =
-                                                await RegisterBusiness()
-                                                    .uploadImage(capturesFile,
-                                                        widget.register.id);
-
-                                            if (uploadResult.isSuccess) {
-                                              inProgress = false;
-                                              setState(() {});
-
-                                              return showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      backgroundColor:
-                                                          Colors.white,
-                                                      content:
-                                                          new SingleChildScrollView(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(right: 0),
-                                                        child: Center(
-                                                          child: Text(
-                                                              'اطلاعات شما با موفقیت ثبت شد'),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  });
-                                            }
-                                            inProgress = false;
-                                            Navigator.pop(context);
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  );
-
-                                  inProgress = false;
-                                  setState(() {});
-                                }),
-                            Padding(
-                              padding: EdgeInsets.all(20.0),
-                            ),
-                            GestureDetector(
-                                child: Text('انتخاب از گالری',
+      width: MediaQuery.of(context).size.width ,
+      child: Padding(
+        padding: const EdgeInsets.only(left:15.0 , right: 35),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                return showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.white,
+                        content: new SingleChildScrollView(
+                          child: new ListBody(
+                            children: <Widget>[
+                              GestureDetector(
+                                  child: new Text(
+                                    'گرفتن عکس',
                                     style:
-                                        TextStyle(color: Colors.grey.shade700)),
-                                onTap: () async {
-                                  inProgress = true;
-                                  var selectedFile = await EndPointService()
-                                      .getImageFromGallery(0, "image");
+                                        TextStyle(color: Colors.grey.shade700),
+                                  ),
+                                  onTap: () {
+                                    inProgress = true;
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Camera(
+                                          captureCallBack: (result) async {
+                                            var capturesFile = File(result);
+                                            RegisterBusiness()
+                                                .setNewPicture(result);
+                                            setState(() {});
+                                            widget.onPictureCallBack();
+                                            if (capturesFile != null) {
+                                              var uploadResult =
+                                                  await RegisterBusiness()
+                                                      .uploadImage(capturesFile,
+                                                          widget.register.id);
 
-                                  if (selectedFile != null) {
-                                    var uploadResult = await RegisterBusiness()
-                                        .uploadImage(
-                                            selectedFile, widget.register.id);
-                                    widget.onPictureCallBack();
-                                    if (uploadResult.isSuccess) {
-                                      // RegisterBusiness()
-                                      //     .setNewPicture(selectedFile.path);
-                                      inProgress = false;
+                                              if (uploadResult.isSuccess) {
+                                                inProgress = false;
+                                                setState(() {});
 
-                                      setState(() {});
-                                      return showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              backgroundColor: Colors.white,
-                                              content:
-                                                  new SingleChildScrollView(
-                                                padding: const EdgeInsets.only(
-                                                    right: 0),
-                                                child: Center(
-                                                  child: Text(
-                                                      'اطلاعات شما با موفقیت ثبت شد'),
+                                                return showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        backgroundColor:
+                                                            Colors.white,
+                                                        content:
+                                                            new SingleChildScrollView(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  right: 0),
+                                                          child: Center(
+                                                            child: Text(
+                                                                'اطلاعات شما با موفقیت ثبت شد'),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    });
+                                              }
+                                              inProgress = false;
+                                              Navigator.pop(context);
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    );
+
+                                    inProgress = false;
+                                    setState(() {});
+                                  }),
+                              Padding(
+                                padding: EdgeInsets.all(20.0),
+                              ),
+                              GestureDetector(
+                                  child: Text('انتخاب از گالری',
+                                      style: TextStyle(
+                                          color: Colors.grey.shade700)),
+                                  onTap: () async {
+                                    inProgress = true;
+                                    var selectedFile = await EndPointService()
+                                        .getImageFromGallery(0, "image");
+
+                                    if (selectedFile != null) {
+                                      var uploadResult =
+                                          await RegisterBusiness().uploadImage(
+                                              selectedFile, widget.register.id);
+                                      widget.onPictureCallBack();
+                                      if (uploadResult.isSuccess) {
+                                        // RegisterBusiness()
+                                        //     .setNewPicture(selectedFile.path);
+                                        inProgress = false;
+
+                                        setState(() {});
+                                        return showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                backgroundColor: Colors.white,
+                                                content:
+                                                    new SingleChildScrollView(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 0),
+                                                  child: Center(
+                                                    child: Text(
+                                                        'اطلاعات شما با موفقیت ثبت شد'),
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                          });
+                                              );
+                                            });
+                                      }
                                     }
-                                  }
 
-                                  //Navigator.pop(context);
-                                  inProgress = false;
-                                  setState(() {});
-                                }),
-                          ],
+                                    //Navigator.pop(context);
+                                    inProgress = false;
+                                    setState(() {});
+                                  }),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  });
-            },
-            child: Container(
-              height: 50.0,
-              width: MediaQuery.of(context).size.width / 5,
-              margin: EdgeInsets.all(10.0),
-              padding: EdgeInsets.all(5.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              child: SvgPicture.asset(
-                'assets/images/camera.svg',
-                fit: BoxFit.cover,
+                      );
+                    });
+              },
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/images/camera.png',
+                    height: 40,
+                  ),
+                ],
               ),
             ),
-          ),
-          //imagePreviewer(),
-          AudioPlayer1(
-            AudioRecordedCallback: (result) async {
-              var recordedFile = File(result);
-              inProgress = true;
-              if (recordedFile != null) {
-                var uploadResult = await RegisterBusiness()
-                    .uploadVoice(recordedFile, widget.register.id);
+            //imagePreviewer(),
+            AudioPlayer1(
+              AudioRecordedCallback: (result) async {
+                var recordedFile = File(result);
+                inProgress = true;
+                if (recordedFile != null) {
+                  var uploadResult = await RegisterBusiness()
+                      .uploadVoice(recordedFile, widget.register.id);
 
-                if (uploadResult.isSuccess) {
-                  RegisterBusiness().setAudioFile(result);
-                  inProgress = false;
+                  if (uploadResult.isSuccess) {
+                    RegisterBusiness().setAudioFile(result);
+                    inProgress = false;
 
-                  return showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          backgroundColor: Colors.white,
-                          content: new SingleChildScrollView(
-                            padding: const EdgeInsets.only(right: 0),
-                            child: Center(
-                              child: Text('اطلاعات شما با موفقیت ثبت شد'),
+                    return showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: Colors.white,
+                            content: new SingleChildScrollView(
+                              padding: const EdgeInsets.only(right: 0),
+                              child: Center(
+                                child: Text('اطلاعات شما با موفقیت ثبت شد'),
+                              ),
                             ),
-                          ),
-                        );
-                      });
+                          );
+                        });
+                  }
                 }
-              }
 
-              inProgress = false;
-            },
-          ),
-        ],
+                inProgress = false;
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

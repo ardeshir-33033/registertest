@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:register/Business/ProfileService.dart';
-import 'package:register/Business/RegisterBusiness.dart';
+import 'package:register/Component/NewRegisterTextField.dart';
 import 'package:register/Models/GoogleAuth.dart';
 import 'package:register/Models/LoginModel.dart';
+import 'file:///C:/flutter/register/RegisterPT2/V2/lib/MainPageScreen/PasajNew.dart';
 import 'package:register/Provider/ProviderServices.dart';
-import 'package:register/Service/ProfileServices.dart';
 import 'package:register/pasajtabaghewidget.dart';
-import 'RedButton.dart';
+import '../TestPasaj.dart';
 import 'RedSmallCheckBox.dart';
-import 'RedSmallCheckBox1.dart';
+import 'UserPassPages/ForgetPassword.dart';
+import 'UserPassPages/NewAccountMobile.dart';
 
 class QC_LoginPage extends StatefulWidget {
   QC_LoginPage({
@@ -41,6 +42,10 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
     initialize().then((value) async {
       auto = ProfileService().autoLoginAllow();
 
+      setState(() {
+        vis = true;
+      });
+
       if (auto) {
         // setState(() {
         if (ProfileService().getUserData().userName != null) {
@@ -57,32 +62,15 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
         );
         if (user != null) {
           setState(() {
-            vis = true;
+
             AutoLoginCheck().value = true;
           });
-          await ProfileService().getUserByUsername(userName.text);
+          // await ProfileService().getUserByUsername(userName.text);
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => PasajTabagheWidget()));
+              MaterialPageRoute(builder: (context) => PasajNew()));
         }
       }
     });
-
-    // if (ProfileService().autoLogin() != null) {
-    //   ProfileService().autoLogin().then((value1) async {
-    //     if (value1 != null) {
-    //       await ProfileService()
-    //           .getUserByUsername(ProfileService().getUserData().userName);
-    //       Navigator.push(
-    //           context,
-    //           MaterialPageRoute(
-    //               builder: (context) =>
-    //                   PasajTabagheWidget()));
-    //       setState(() {
-    //         vis = false;
-    //       });
-    //     }
-    //   });
-    // }
   }
 
   GoogleSignIn googleSignIn = GoogleSignIn(
@@ -91,363 +79,198 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    double phoneWidth = MediaQuery.of(context).size.width;
+    double phoneheight = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Image.asset(
-                "assets/images/newbg.png",
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.fitWidth,
-              ),
-              Visibility(
-                maintainSize: false,
-                maintainAnimation: true,
-                maintainState: true,
-                visible: false,
-                child: Container(
-                  child: Text(
-                    "در حال پردازش",
-                    style: TextStyle(
-                        //color: CBase().basePrimaryColor,
-                        //fontSize: CBase().getTextfontSizeByScreen(),
+        child: Container(
+          constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(
+                  "assets/images/Background.png",
+                )),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 3.4,
+                ),
+                RegisterTextField(
+                  controller: userName,
+                  hint: "نام کاربری",
+                ),
+                RegisterTextField(
+                  controller: password,
+                  hint: "رمز عبور",
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width / 20),
+                      child: GestureDetector(
+                        child: Text(
+                          "فراموشی رمز",
+                          style: TextStyle(fontSize: 9),
                         ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForgetPassword(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width / 4),
+                      child: Consumer<AutoLoginCheck>(
+                        builder: (context, AutoLog, child) => Container(
+                          width: MediaQuery.of(context).size.width / 2.98,
+                          child: CheckboxListTile(
+                            dense: true,
+                            title: Text(
+                              "ورود خودکار",
+                              style: TextStyle(fontSize: 9),
+                            ),
+                            value: AutoLog.value,
+                            onChanged: (value) {
+                              AutoLog.checkLoginVal(value);
+                              ProfileService()
+                                  .saveAutoLoginDataLocaly(AutoLog.value);
+                              ProfileService().loadAutoLoginDataLocaly();
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Center(
+                  child: Visibility(
+                      visible: vis,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.red[800],
+                        ),
+                        backgroundColor: Color(0xFF2C2C2C),
+                      )),
+                ),
+                SizedBox(
+                  height: vis ? phoneheight / 15 : phoneheight / 9,
+                ),
+                Center(
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                    color: Color(0xFFDC0909),
+                    child: Text(
+                      "ورود",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    onPressed: () async {
+                      try {
+                        setState(() {
+                          vis = true;
+                        });
+                        var user = await ProfileService().login(
+                          LoginModel(
+                            password: password.text,
+                            userName: userName.text,
+                          ),
+                        );
+                        // await ProfileService().getUserByUsername(userName.text);
+                        if (user != null) {
+                          //Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PasajNew()));
+                        } else {
+                          final snackBar = SnackBar(
+                            content: Container(
+                              height: 52.0,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "ورود ناموفق",
+                                  ),
+                                  Text(
+                                    "لطفا شناسه و رمز کاربری خود را چک کنید",
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+
+                          _scaffoldKey.currentState.showSnackBar(snackBar);
+                        }
+                      } catch (e) {}
+                      setState(() {
+                        vis = false;
+                      });
+                    },
                   ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                  top: 5.0,
-                  bottom: 5.0,
-                  left: 50.0,
-                  right: 50.0,
+                SizedBox(
+                  height: 10,
                 ),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5.0, right: 8),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'نام کاربری',
-                            style: TextStyle(
-                              //fontFamily: CBase().fontFamily,
-                              fontSize: 11,
-                              //color: CBase().textPrimaryColor,
-                            ),
-                            textAlign: TextAlign.right,
-                          ),
-                          Expanded(
-                            child: Text(""),
-                          ),
-                          Text(
-                            'Username',
-                            style: TextStyle(
-                              //fontFamily: CBase().fontFamily,
-                              fontSize: 11,
-                              //color: CBase().textPrimaryColor,
-                              fontWeight: FontWeight.w300,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
-                      ),
+                Image(
+                  image: AssetImage(
+                    "assets/images/Artboard1.png",
+                  ),
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      LoginSignIn();
+                    },
+                    child: Text('ورود با حساب گوگل',
+                      style: TextStyle(fontSize: 15),
                     ),
-                    Container(
-                      height: 40.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        color: const Color(0xffffffff),
-                        border: Border.all(color: Colors.grey[400]
-                            //width: CBase().borderPrimarySize,
-                            //color: CBase().borderPrimaryColor,
-                            ),
-                        boxShadow: [
-                          BoxShadow(
-                              color: const Color(0x1f000000),
-                              offset: Offset(0, 3),
-                              blurRadius: 6)
-                        ],
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(),
-                        child: TextField(
-                          controller: userName,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              enabledBorder: InputBorder.none),
-                          textDirection: TextDirection.rtl,
+                  ),
+                ),
+                SizedBox(
+                  height: phoneheight / 7,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('ایجاد حساب کاربری',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NewMobileAccount()));
+                      },
+                      child: Padding(
+                        padding:  EdgeInsets.only(right:4.0),
+                        child: Text(
+                          'جدید',
+                          style: TextStyle(color: Color(0xFFDC0909) , fontSize: 13),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5.0, right: 8),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'رمز عبور',
-                            style: TextStyle(
-                              //fontFamily: CBase().fontFamily,
-                              fontSize: 11,
-                              //color: CBase().textPrimaryColor,
-                            ),
-                            textAlign: TextAlign.right,
-                          ),
-                          Expanded(
-                            child: Text(""),
-                          ),
-                          Text(
-                            'Password',
-                            style: TextStyle(
-                              //fontFamily: CBase().fontFamily,
-                              fontSize: 11,
-                              //color: CBase().textPrimaryColor,
-                              fontWeight: FontWeight.w300,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 40.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        color: const Color(0xffffffff),
-                        border: Border.all(
-                            //width: CBase().borderPrimarySize,
-                            color: Colors.grey[400]),
-                        boxShadow: [
-                          BoxShadow(
-                              color: const Color(0x1f000000),
-                              offset: Offset(0, 3),
-                              blurRadius: 6)
-                        ],
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(),
-                        child: TextField(
-                          obscureText: true,
-                          controller: password,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              enabledBorder: InputBorder.none),
-                          textDirection: TextDirection.rtl,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            alignment: Alignment.topRight,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                FlatButton(
-                                  padding: EdgeInsets.only(top: 5.0, bottom: 5),
-                                  child: Text(
-                                    "بازیابی رمز عبور",
-                                    style: TextStyle(
-                                      //fontFamily: CBase().fontFamily,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.normal,
-                                      //color: CBase().textPrimaryColor,
-                                    ),
-                                    textAlign: TextAlign.right,
-                                  ),
-                                  highlightColor: Colors.grey[200],
-                                  onPressed: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //       builder: (context) =>
-                                    //           QC_ResetPasswordPage()),
-                                    // ),
-                                  },
-                                ),
-                                SizedBox(
-                                  width: 1,
-                                ),
-                                Visibility(
-                                  maintainSize: false,
-                                  maintainAnimation: true,
-                                  maintainState: true,
-                                  visible: vis,
-                                  child: Container(
-                                    child: vis
-                                        ? CircularProgressIndicator()
-                                        : Text(""),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  child: Container(
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Consumer<AutoLoginCheck>(
-                                          builder: (context, AutoLog, child) =>
-                                              Container(
-                                            width: 150,
-                                            child: CheckboxListTile(
-                                              dense: true,
-                                              title: Text(
-                                                "ورود خودکار",
-                                                style: TextStyle(fontSize: 10),
-                                              ),
-                                              value: AutoLog.value,
-                                              onChanged: (value) {
-                                                AutoLog.checkLoginVal(value);
-                                                ProfileService()
-                                                    .saveAutoLoginDataLocaly(
-                                                        AutoLog.value);
-                                                ProfileService()
-                                                    .loadAutoLoginDataLocaly();
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        // Container(
-                                        //   child: Text(
-                                        //     "ورود خودکار",
-                                        //     style: TextStyle(),
-                                        //   ),
-                                        // ),
-                                        // SizedBox(
-                                        //   width: 12.0,
-                                        // ),
-                                        // autoWidget,
-                                      ],
-                                    ),
-                                  ),
-                                  onTap: () {},
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 35.0,
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             PasajTabagheWidget()));
-
-                              try {
-                                setState(() {
-                                  vis = true;
-                                });
-
-                                var user = await ProfileService().login(
-                                  LoginModel(
-                                    password: password.text,
-                                    userName: userName.text,
-                                  ),
-                                );
-
-                                await ProfileService()
-                                    .getUserByUsername(userName.text);
-
-                                if (user != null) {
-                                  //Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PasajTabagheWidget()));
-                                } else {
-                                  final snackBar = SnackBar(
-                                    content: Container(
-                                      height: 50.0,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "ورود ناموفق",
-                                          ),
-                                          Text(
-                                            "لطفا شناسه و رمز کاربری خود را چک کنید",
-                                            // style: TextStyle(
-                                            //    // fontFamily: CBase().fontFamily,
-                                            //     fontSize: CBase()
-                                            //         .getTextfontSizeByScreen()),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-
-                                  _scaffoldKey.currentState
-                                      .showSnackBar(snackBar);
-                                }
-                              } catch (e) {}
-                              setState(() {
-                                vis = false;
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                color: Color(0xffeb5151),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 25.0, vertical: 10.0),
-                                child: Text(
-                                  'ورود',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                          RaisedButton(
-                            child: Text('google'),
-                            onPressed: () {
-                              LoginSignIn();
-                            },
-                          ),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          FlatButton(
-                            padding: EdgeInsets.only(bottom: 35.0, top: 0.0),
-                            child: Text(
-                              "حساب کاربری ندارم",
-                              style: TextStyle(
-                                //fontFamily: CBase().fontFamily,
-                                fontSize: 11,
-                                fontWeight: FontWeight.normal,
-                                //color: CBase().textPrimaryColor,
-                              ),
-                              textAlign: TextAlign.right,
-                            ),
-                            highlightColor: Colors.grey[200],
-                            onPressed: () {},
-                          ),
-                        ],
-                        textDirection: TextDirection.rtl,
                       ),
                     )
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -470,7 +293,7 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => PasajTabagheWidget()));
+              builder: (BuildContext context) => PasajNew()));
     }
   }
 }

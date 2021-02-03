@@ -35,7 +35,7 @@ class Brand {
         json['vehicle'] != null ? new Vehicle.fromJson(json['vehicle']) : null;
     vehicleId = json['vehicleId'];
     id = json['id'];
-    madeInContry = json['madeInContry'];
+    madeInContry = json['madeInCountry'];
   }
 
   Map<String, dynamic> toJson() {
@@ -52,7 +52,7 @@ class Brand {
     }
     if (this.vehicleId != null) data['vehicleId'] = this.vehicleId;
     if (this.id != null) data['id'] = this.id;
-    if (this.madeInContry != null) data['madeInContry'] = this.madeInContry;
+    if (this.madeInContry != null) data['madeInCountry'] = this.madeInContry;
     return data;
   }
 
