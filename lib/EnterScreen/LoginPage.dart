@@ -3,12 +3,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:register/Business/ProfileService.dart';
 import 'package:register/Component/NewRegisterTextField.dart';
+import 'package:register/MainPageScreen/PasajNew.dart';
 import 'package:register/Models/GoogleAuth.dart';
 import 'package:register/Models/LoginModel.dart';
-import 'file:///C:/flutter/register/RegisterPT2/V2/lib/MainPageScreen/PasajNew.dart';
 import 'package:register/Provider/ProviderServices.dart';
 import 'package:register/pasajtabaghewidget.dart';
-import '../TestPasaj.dart';
 import 'RedSmallCheckBox.dart';
 import 'UserPassPages/ForgetPassword.dart';
 import 'UserPassPages/NewAccountMobile.dart';
@@ -135,7 +134,8 @@ class _QC_LoginPageState extends State<QC_LoginPage> {
                     Padding(
                       padding: EdgeInsets.only(
                           right: MediaQuery.of(context).size.width / 4),
-                      child: Consumer<AutoLoginCheck>(
+                      child:
+                      Consumer<AutoLoginCheck>(
                         builder: (context, AutoLog, child) => Container(
                           width: MediaQuery.of(context).size.width / 2.98,
                           child: CheckboxListTile(

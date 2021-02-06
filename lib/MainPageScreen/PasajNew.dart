@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:register/ApiModels/LocationOfRegister.dart';
 import 'package:register/Component/NewRegisterTextField.dart';
 import 'package:register/pasajtabaghewidget.dart';
 
@@ -42,13 +43,14 @@ class _PasajNewState extends State<PasajNew>
 
   bool selected1 = false;
 
-  List<String> MogheiatList = [
-    'چراغ برق',
-    'شهرستان',
-    'تعمیرگاه',
-    'اطراف تهران'
-  ];
-  List<String> MogheiatListSelected = [];
+  List<LocationOfRegister> MogheiatList = List<LocationOfRegister>();
+  // [
+  //   'چراغ برق',
+  //   'شهرستان',
+  //   'تعمیرگاه',
+  //   'اطراف تهران'
+  // ];
+  List<LocationOfRegister> MogheiatListSelected = [];
 
   List<String> RasteList = ["سنگین", "نیمه سنگین", "تخصصی", "سبک"];
   List<String> RasteListSelected = [];
@@ -189,6 +191,7 @@ class _PasajNewState extends State<PasajNew>
         .getBrands()
         .length == 0) {
       RegisterBusiness().initialDataAsync().then((value) {
+        MogheiatList = RegisterBusiness().getLocations();
         ////BrandsList = RegisterBusiness().getBrands();
         setState(() {});
       });
@@ -298,7 +301,7 @@ class _PasajNewState extends State<PasajNew>
                                                   child: DisiredLists(
                                                     phoneWidth: phoneWidth,
                                                     ListSelected:
-                                                    MogheiatListSelected,
+                                                    MogheiatListSelected.map((e) => e.name).toList(),
                                                     divide: 2.2,
                                                   ),
                                                 ),
@@ -375,7 +378,7 @@ class _PasajNewState extends State<PasajNew>
                                                 Padding(
                                                   padding: EdgeInsets.all(20.0),
                                                   child: Text(
-                                                      MogheiatList[index]),
+                                                      MogheiatList[index].name),
                                                 ),
                                               ],
                                             );

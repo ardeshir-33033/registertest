@@ -3,13 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:register/MainPageScreen/AddBrand.dart';
 import 'package:register/MainPageScreen/PasajSecondPage.dart';
-import 'file:///C:/flutter/register/RegisterPT2/V2/lib/MainPageScreen/PasajNew.dart';
-import 'package:register/pasajtabaghewidget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'EnterScreen/LoginPage.dart';
 import 'Provider/PasajFirstProvider.dart';
 import 'Provider/ProviderServices.dart';
-import 'TextfieldProvider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
